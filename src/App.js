@@ -34,13 +34,33 @@ export default function App() {
     }
   ]);
 
+  // Delete specific note by compare id
+  function deleteNote(id) {
+    // const newNote = notes.filter((note) => note.id !== id);
+
+    // // Set notes to new notes
+    // setNotes(newNote);
+
+    // Filter array notes and delete match one
+    setNotes((PrevNotes) => {
+      return PrevNotes.filter((note) => {
+        return note.id !== id;
+      });
+    });
+  }
+
+  // Add New note
+  const newNote = (note) => {
+    setNotes((preNote) => [...preNote, note]);
+  };
+
   return (
     <div>
       <Header />
       <main>
-        <AddNote />
+        <AddNote newNote={newNote} />
         {notes.map((note) => (
-          <Note key={note.id} note={note} />
+          <Note key={note.id} note={note} deleteNote={deleteNote} />
         ))}
       </main>
       <Footer />
